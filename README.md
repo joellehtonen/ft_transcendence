@@ -1,81 +1,151 @@
-# FT_TRANSCENDENCE
-**ft_transcendence** is a **full-stack web application** and multiplayer gaming platform built as part of the 42 curriculum.<br>
-The project combines real-time gameplay, user management, and tournament features while following a microservices architecture with secure authentication.<br>
-Players can compete in a classic Pong game against friends, or random opponents, and managing their profiles.<br>
+# ft_transcendence
 
-## Key Features
+A full-stack multiplayer web application built around a real-time Pong game. The final project of the [42 / Hive School](https://www.hive.fi) common core curriculum.
 
-🎮 Real-time Pong Gameplay – Play against humans or AI opponents.<br>
-🧑‍🤝‍🧑 User Management – Registration, login, and profile customization.<br>
-🔐 Secure Authentication – JWT-based login and Two-Factor Authentication (2FA).<br>
-🏆 Tournaments – Organize and participate in competitive tournaments.<br>
-🌐 Multi-language Support – Accessibility for diverse users.<br>
-🐳 Containerized Deployment – Fully managed with Docker Compose.<br>
+## Table of Contents
+
+- [Overview](#overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Requirements](#requirements)
+- [Setup & Running](#setup--running)
+- [What I Did](#what-i-did)
+- [License](#license)
+
+---
+
+## Overview
+
+ft_transcendence is a full-stack web platform where players can register, manage profiles, compete in real-time Pong matches against other players or an AI opponent, and participate in tournaments. The application is built on a microservices architecture, containerized with Docker, and secured with JWT authentication and optional two-factor authentication (2FA).
+
+## Features
+
+- **Real-time Pong** — Play against human opponents or an AI via WebSockets
+- **User Management** — Registration, login, profile customization, and avatars
+- **JWT Authentication** — Secure token-based auth with refresh token support
+- **Two-Factor Authentication (2FA)** — Optional extra layer of account security
+- **Google OAuth** — Sign in with a Google account
+- **Tournaments** — Create and participate in competitive brackets
+- **Match History & Stats** — Track wins, losses, and performance over time
+- **Multi-language Support** — Accessible to a diverse userbase
+- **Containerized Deployment** — All services managed with Docker Compose
 
 ## Tech Stack
+
 **Frontend**
-- React – Component-based UI
-- TypeScript – Type-safe development
-- Tailwind CSS – Utility-first styling
+- React + TypeScript
+- Tailwind CSS
 
-**Backend & Architecture**
-- Node.js + Fastify – High-performance backend services
-- Microservices Architecture – Modular design for scalability
-- SQLite – Lightweight database for persistence
-- Sequelize – ORM for structured and maintainable database management
-- WebSockets – Real-time communication
-- Docker & Docker Compose – Simplified deployment and isolation
+**Backend**
+- Node.js + Fastify (microservices)
+- WebSockets (real-time game communication)
+- SQLite + Sequelize ORM
 
-## How to run
-1. Clone the project
-```sh
-git clone https://github.com/Sherry5Wu/ft_trancedence.git ft_trancedence && cd ft_trancedence
+**Infrastructure**
+- Docker & Docker Compose
+- API Gateway (centralized routing to microservices)
+- GitHub Actions (CI/CD workflows)
+
+## Project Structure
+
+```
+ft_transcendence/
+├── frontend/          # React/TypeScript SPA
+├── gateway/           # API Gateway service
+├── services/          # Backend microservices
+│   └── auth-service/  # Authentication & JWT handling
+├── test/              # Test scripts
+├── docs/              # Documentation
+├── docker-compose.yml
+└── Makefile
 ```
 
-2. This project uses a .env file to store sensitive configuration values such as authentication secrets, API keys, and database paths.<br>
-Here are steps for prepare your own .env files.<br>
-**Copy .env.example to .env**
+## Requirements
+
+- Docker
+- Docker Compose
+
+No other dependencies need to be installed manually — everything runs inside containers.
+
+## Setup & Running
+
+**1. Clone the repository**
+
+```bash
+git clone https://github.com/joellehtonen/ft_transcendence.git
+cd ft_transcendence
+```
+
+**2. Configure environment variables**
+
+Copy the example env file and fill in your own values:
+
 ```bash
 cp ./services/auth-service/.env.example ./services/auth-service/.env
 ```
-**Fill in your own values**
-Open the .env file and replace the placeholder values with your own credentials or secrets. For example:
-```bash
-#jwt_secret_key (32+)
-JWT_SECRET=your-jwt-secret-here (32+ characters)
+
+Open `.env` and replace the placeholders:
+
+```env
+# JWT secrets (32+ characters recommended)
+JWT_SECRET=your-jwt-secret-here
 JWT_REFRESH_SECRET=your-refresh-secret-here
 
-# 2fa encryption key
+# 2FA encryption key
 TWOFA_ENC_KEY=your-2fa-encryption-key-here
 
-# Google sign in
+# Google OAuth credentials
 GOOGLE_CLIENT_ID=your-client-id
 GOOGLE_CLIENT_SECRET=your-client-secret
 ```
-The backend automatically reads the variables from your .env file. Make sure the values are valid; otherwise, authentication and database connections may fail.<br>
 
-3. Build the containers up
-```sh
+**3. Build and start all containers**
+
+```bash
 make
 ```
-please be patient, this step may take around 2~3 minutes.<br>
 
-4. After all the services(containers) are up, then you can access to the website: https://localhost:8443 <br>
-Because the website uses a self-signed certificate, you will see the warning page shown below.<br>
-Don’t worry — just click “Advanced”, then click “Proceed to localhost (unsafe)”.<br>
-Note: I used Google Chrome, so if you are using a different browser, the wording may be slightly different.<br>
+This step may take 2–3 minutes on first run.
 
-![alt text](./z-images/self-signed-1.png)
+**4. Open the application**
 
-![alt text](./z-images/self-signed-2.png)
+Navigate to: [https://localhost:8443](https://localhost:8443)
 
-Now should see the frist page of our website:
-![alt text](./z-images/First-page.png)
+The app uses a self-signed certificate, so your browser will show a security warning. Click **Advanced → Proceed to localhost (unsafe)** to continue.
 
-then you start to use our website to play some pinpang games.<br>
+![Self-signed certificate warning step 1](z-images/self-signed-1.png)
 
-Below are some pages from website:
+![Self-signed certificate warning step 2](z-images/self-signed-2.png)
 
-![alt text](./z-images/main-page.png)
+Once past the warning, you'll land on the home page:
 
-![alt text](./z-images/game.png)
+![Home page](z-images/First-page.png)
+
+---
+
+## Screenshots
+
+![Main page](z-images/main-page.png)
+
+![Game view](z-images/game.png)
+
+---
+
+## What I Did
+
+This was a team project. My personal contributions included:
+
+- Designing the layout of the web page with the other frontend engineer
+- Designing the look of the web page
+- Most of the components (navbar, search bar, icons, dropdown, etc)
+- Main user page, rival pages, statistics
+- Merging frontend with backend with our backend engineer, fetching backend data
+- Managing user login data (contexts)
+- Most of the UI/UX polish
+
+---
+
+## License
+
+This project was developed as part of the 42 / Hive School curriculum. No license is explicitly provided.
