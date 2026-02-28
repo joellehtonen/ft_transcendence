@@ -13,6 +13,8 @@ COPY package.json package-lock.json ./
 # install node package manager
 RUN npm install
 
+RUN npm install -g serve
+
 # copy everything else
 COPY . .
 
