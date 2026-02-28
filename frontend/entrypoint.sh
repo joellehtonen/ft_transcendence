@@ -1,4 +1,5 @@
 #!/bin/sh
 
 echo -e "\033[32mStarting frontend...\033[0m"
-exec NODE_ENV=production npm run dev
+export NODE_ENV=production
+exec npm run dev
