@@ -12,9 +12,9 @@ export default defineConfig({
     port: 9000,
     // Make HMR connect back through the HTTPS reverse proxy
     hmr: process.env.NODE_ENV === 'production' ? false : {
-    protocol: 'wss',
-    host: 'localhost',
-    clientPort: 8443,
+        protocol: 'wss',
+        host: 'localhost',
+        clientPort: 8443,
     },
     origin: process.env.NODE_ENV === 'production' ? undefined : 'https://localhost:8443',
   },
