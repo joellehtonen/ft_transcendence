@@ -15,9 +15,11 @@ import {
 	TournamentHistoryRow
 	} from "../utils/Interfaces";
 
+import API_BASE from "./config";
+
 export const createUser = async (player: UserProfileData): Promise<UserProfileData | null> => {
 	try {
-		const response = await fetch('https://localhost:8443/as/auth/register', {
+		const response = await fetch(`${API_BASE}/as/auth/register`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -40,7 +42,7 @@ export const createUser = async (player: UserProfileData): Promise<UserProfileDa
 
 export const createUserFromGoogle = async (player: UserGoogleProfileData): Promise<GoogleCompleteResponse | null> => {
   try {
-    const response = await fetch("https://localhost:8443/as/auth/google-complete", {
+    const response = await fetch(`${API_BASE}/as/auth/google-complete`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(player),
@@ -60,7 +62,7 @@ export const createUserFromGoogle = async (player: UserGoogleProfileData): Promi
 export const signInUser = async (player: LoginData) => {
 	try {
 		// fetch for user data
-		const response = await fetch('https://localhost:8443/as/auth/login', {
+		const response = await fetch(`${API_BASE}/as/auth/login`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -90,7 +92,7 @@ export const signInUser = async (player: LoginData) => {
 		// 3: Password matched + 2FA disabled
 		if (data.code === 'PASSWORD_MATCH_2FA_DISABLE') {
 		// fetch for user stats
-		const statResponse = await fetch (`https://localhost:8443/stats/user_match_data/`, {
+		const statResponse = await fetch (`${API_BASE}stats/user_match_data/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -104,7 +106,7 @@ export const signInUser = async (player: LoginData) => {
 		const stats = await statResponse.json();
 
 		// fetch for user rivals
-		const rivalResponse = await fetch (`https://localhost:8443/stats/rivals/${data.user.id}`, {
+		const rivalResponse = await fetch (`${API_BASE}/stats/rivals/${data.user.id}`, {
 			method: 'GET',
 			headers: {
 			'Content-Type': 'application/json',
@@ -135,7 +137,7 @@ export const signInUser = async (player: LoginData) => {
 
 export const signInGoogleUser = async (idToken: string) => {
   try {
-    const response = await fetch("https://localhost:8443/as/auth/google-login", {
+    const response = await fetch(`${API_BASE}/as/auth/google-login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ idToken }),
@@ -159,13 +161,13 @@ export const signInGoogleUser = async (idToken: string) => {
 
     // 3: Normal login flow
     if (data.success && data.code === "TWOFA_DISABLE") {
-      const statResponse = await fetch("https://localhost:8443/stats/user_match_data/", {
+      const statResponse = await fetch(`${API_BASE}/stats/user_match_data/`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
       const stats = await statResponse.json();
 
-      const rivalResponse = await fetch(`https://localhost:8443/stats/rivals/${data.user.id}`, {
+      const rivalResponse = await fetch(`${API_BASE}/stats/rivals/${data.user.id}`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
       });
@@ -189,7 +191,7 @@ export const updateProfilePic = async (file: File, token: string | null) => {
 		const formData = new FormData();
 		formData.append('avatar', file);
 
-		const response = await fetch('https://localhost:8443/as/users/me/upload-avatar', {
+		const response = await fetch(`${API_BASE}/as/users/me/upload-avatar`, {
 			method: 'POST',
 			headers: {
 				'Authorization': `Bearer ${token}`,
@@ -211,7 +213,7 @@ export const updateProfilePic = async (file: File, token: string | null) => {
 
 export const fetchRivalData = async (username: string) => {
 	try {
-		const rivals = await fetch(`https://localhost:8443/stats/rivals/username/${username}`, {
+		const rivals = await fetch(`${API_BASE}/stats/rivals/username/${username}`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -242,7 +244,7 @@ export const addRival = async (rivalName: string, token: string | null) => {
 	};
 
 	try {
-		const response = await fetch(`https://localhost:8443/stats/rivals`, {
+		const response = await fetch(`${API_BASE}/stats/rivals`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
@@ -269,7 +271,7 @@ export const removeRival = async (rivalName: string, token: string | null) => {
 		return ;
 
 	try {
-		const response = await fetch(`https://localhost:8443/stats/rivals/username/${rivalName}`, {
+		const response = await fetch(`${API_BASE}/stats/rivals/username/${rivalName}`, {
 			method: 'DELETE',
 			headers: {
 				'Authorization': `Bearer ${token}`,
@@ -289,7 +291,7 @@ export const removeRival = async (rivalName: string, token: string | null) => {
 
 export const fetchScoreHistory = async (username: string): Promise<ScoreHistory[] | null>  => {
 	try {
-		const response = await fetch(`https://localhost:8443/stats/score_history/username/${username}`, {
+		const response = await fetch(`${API_BASE}/stats/score_history/username/${username}`, {
 			method: 'GET'
 		});
 
@@ -313,7 +315,7 @@ export const fetchScoreHistory = async (username: string): Promise<ScoreHistory[
 
 export const fetchUserStats = async (username: string): Promise<UserStats | null> => {
 	try {
-		const response = await fetch(`https://localhost:8443/stats/user_match_data/username/${username}`, {
+		const response = await fetch(`${API_BASE}/stats/user_match_data/username/${username}`, {
 		    method: 'GET'
 		});
 
@@ -332,7 +334,7 @@ export const fetchUserStats = async (username: string): Promise<UserStats | null
 
 export const fetchMatchData = async (username: string): Promise<MatchData [] | null> => {
     try {
-        const response = await fetch(`https://localhost:8443/stats/match_history/username/${username}`, {
+        const response = await fetch(`${API_BASE}/stats/match_history/username/${username}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -357,7 +359,7 @@ export const fetchUsers = async (token: string | null) => {
 		return ;
 
 	try {
-		const response = await fetch(`https://localhost:8443/as/users/all`, {
+		const response = await fetch(`${API_BASE}/as/users/all`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
@@ -383,7 +385,7 @@ export const fetchUsers = async (token: string | null) => {
 
 export const verify2FA = async (tokenCode: string, accessToken: string) => {
   try {
-    const response = await fetch("https://localhost:8443/as/2fa/verify", {
+    const response = await fetch(`${API_BASE}/as/2fa/verify`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -408,7 +410,7 @@ export const verify2FA = async (tokenCode: string, accessToken: string) => {
 // confirm the 6-digit code for setup 2fa
 export const confirm2FA = async (tokenCode: string, accessToken: string) => {
   try {
-    const response = await fetch("https://localhost:8443/as/2fa/confirmation", {
+    const response = await fetch(`${API_BASE}/as/2fa/confirmation`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -433,7 +435,7 @@ export const confirm2FA = async (tokenCode: string, accessToken: string) => {
 // verify the 6-digit code after sign in, if 2fa is enable
 export const verifyCode2FA = async (userId: string, token: string) => {
   try {
-    const response = await fetch(`https://localhost:8443/as/2fa/verification/${userId}`, {
+    const response = await fetch(`${API_BASE}/as/2fa/verification/${userId}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ token }),
@@ -470,7 +472,7 @@ export const verifyCode2FA = async (userId: string, token: string) => {
 // verify the recovery code after sign in, if 2fa is enable
 export const verifyBackupCode = async (userId: string, token: string) => {
   try {
-    const response = await fetch(`https://localhost:8443/as/2fa/backupcode/${userId}`, {
+    const response = await fetch(`${API_BASE}/as/2fa/backupcode/${userId}`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ backupCode: token }),
@@ -507,7 +509,7 @@ export const disable2FA = async (accessToken: string | null): Promise<boolean> =
   if (!accessToken) return false;
 
   try {
-    const res = await fetch(`https://localhost:8443/as/2fa/disable`, {
+    const res = await fetch(`${API_BASE}/as/2fa/disable`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${accessToken}`,
@@ -527,7 +529,7 @@ export const updateUserPin = async (
   accessToken: string
 ): Promise<boolean> => {
   try {
-    const response = await fetch("https://localhost:8443/as/users/me/update-pincode", {
+    const response = await fetch(`${API_BASE}/as/users/me/update-pincode`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -561,7 +563,7 @@ export const updateUserPassword = async (
   accessToken: string
 ): Promise<boolean> => {
   try {
-    const response = await fetch("https://localhost:8443/as/users/me/update-password", {
+    const response = await fetch(`${API_BASE}/as/users/me/update-password`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -591,7 +593,7 @@ export const updateUserPassword = async (
 
 export const loginRegisteredPlayer = async ( player: RegisteredPlayerData ): Promise<VerifyPinResponse> => {
   try {
-    const response = await fetch("https://localhost:8443/as/users/verify-pincode", {
+    const response = await fetch(`${API_BASE}/as/users/verify-pincode`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(player),
@@ -627,7 +629,7 @@ export const fetchUserProfile = async (
   `https://api.dicebear.com/6.x/initials/png?seed=${encodeURIComponent(seed)}&backgroundColor=ffee8c&textColor=000000`;
 
   try {
-    const response = await fetch(`https://localhost:8443/as/users/profile/${username}`, {
+    const response = await fetch(`${API_BASE}/as/users/profile/${username}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -660,7 +662,7 @@ export const fetchProfileMe = async (
   token: string
 ): Promise<ProfileMeResponse | null> => {
   try {
-    const res = await fetch(`https://localhost:8443/as/users/profile/me`, {
+    const res = await fetch(`${API_BASE}/as/users/profile/me`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -683,7 +685,7 @@ export const fetchProfileMe = async (
 
 export const fetchEloScore = async (username: string): Promise<number> => {
   try {
-    const response = await fetch(`https://localhost:8443/stats/user_match_data/elo_score/${username}`, {
+    const response = await fetch(`${API_BASE}}/stats/user_match_data/elo_score/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -700,8 +702,6 @@ export const fetchEloScore = async (username: string): Promise<number> => {
     return 1000;
   }
 };
-
-const API_BASE = 'https://localhost:8443';
 
 export async function fetchAllTournamentHistory(): Promise<TournamentHistoryRow[]> {
   const res = await fetch(`${API_BASE}/tournament_history`, { credentials: 'include' });

@@ -9,8 +9,7 @@ import DownArrow from '../../assets/icons/symbols/arrow-down-icon.svg?react';
 import ModularBracketViewer from '../../components/ModularBracketViewer';
 import { useUserContext } from '../../context/UserContext';
 import { Result, TournamentHistoryRow, UITournament } from '../../utils/Interfaces';
-
-const API_BASE = 'https://localhost:8443';
+import API_BASE from '../../utils/config';
 
 async function fetchAllTournamentHistory(): Promise<TournamentHistoryRow[]> {
   const res = await fetch(`${API_BASE}/tournament_history`, { credentials: 'include' });

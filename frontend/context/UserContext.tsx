@@ -1,6 +1,8 @@
 import { useState, createContext, useContext, useRef, ReactNode, useEffect } from 'react';
 import { UserContextType, User } from '../utils/Interfaces';
 import { DEFAULT_AVATAR } from '../utils/constants';
+import API_BASE from "../utils/config";
+
 
 export const userContext = createContext<UserContextType | undefined>(undefined);
 
@@ -18,7 +20,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
     const refresh = async () => {
         try {
-            const response = await fetch('https://localhost:8443/as/auth/refresh', {
+            const response = await fetch(`${API_BASE}/as/auth/refresh`, {
                 method: 'POST',
                 credentials: 'include'
             });
@@ -50,7 +52,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
             });
 
 			// fetch for user stats
-			const statResponse = await fetch (`https://localhost:8443/stats/user_match_data/`, {
+			const statResponse = await fetch (`${API_BASE}/stats/user_match_data/`, {
 				method: 'GET',
 				headers: {
 					'Content-Type': 'application/json',
@@ -66,7 +68,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 			const stats = await statResponse.json();
 
 			// fetch for user rivals
-			const rivalResponse = await fetch (`https://localhost:8443/stats/rivals/${data.user.id}`, {
+			const rivalResponse = await fetch (`${API_BASE}/stats/rivals/${data.user.id}`, {
 				method: 'GET',
 				headers: {
 				'Content-Type': 'application/json',
@@ -105,7 +107,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
 	const logOut = async () => {
 		try {
-			const response = await fetch('https://localhost:8443/as/auth/logout', {
+			const response = await fetch(`${API_BASE}/as/auth/logout`, {
 				method: 'POST',
 				credentials: 'include'
 			});

@@ -1,4 +1,4 @@
-const API_BASE = "https://localhost:8443";
+import API_BASE from "../../utils/config";
 
 export type StatsPayload = {
   player_id?: string | null;

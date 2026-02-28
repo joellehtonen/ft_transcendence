@@ -12,6 +12,7 @@ import { useUserContext } from '../../context/UserContext';
 import { confirm2FA } from '../../utils/Fetch';
 import { fetchProfileMe, disable2FA } from '../../utils/Fetch';
 import { ProfileMeResponse } from '../../utils/Interfaces';
+import API_BASE from '../../utils/config';
 
 const Setup2faMainPage: React.FC = () => {
   const { t } = useTranslation();
@@ -34,7 +35,7 @@ const Setup2faMainPage: React.FC = () => {
 
     const fetch2FAData = async () => {
       try {
-        const response = await fetch('https://localhost:8443/as/2fa/setup', {
+        const response = await fetch(`{API_BASE}/as/2fa/setup`, {
           method: 'POST',
           headers: {
             Authorization: `Bearer ${accessToken}`,
