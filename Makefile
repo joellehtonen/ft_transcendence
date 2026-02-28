@@ -5,10 +5,10 @@ BUILD_MARKER_FRONTEND = .frontend_build
 ENV_FILE = .env
 
 # Explicitly list all relevant files
-TOURNAMENT_FILES = services/tournament-service/dockerfile services/tournament-service/tournamentdata.js
+TOURNAMENT_FILES = services/tournament-service/Dockerfile services/tournament-service/tournamentdata.js
 STATS_FILES = $(shell find services/stats-service -type f)
 
-GATEWAY_FILES= gateway/dockerfile gateway/nginx.conf
+GATEWAY_FILES= gateway/Dockerfile gateway/nginx.conf
 
 FRONTEND_FILES := \
   frontend/package.json \
