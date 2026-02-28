@@ -22,9 +22,6 @@ RUN chmod +x entrypoint.sh
 # expose a port for the app to run
 EXPOSE 9000
 
-# set mode to production
-ENV NODE_ENV=production
-
 # run the entrypoint script
 CMD ["sh", "/app/entrypoint.sh"]
 
