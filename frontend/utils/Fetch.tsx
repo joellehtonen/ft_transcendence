@@ -92,7 +92,7 @@ export const signInUser = async (player: LoginData) => {
 		// 3: Password matched + 2FA disabled
 		if (data.code === 'PASSWORD_MATCH_2FA_DISABLE') {
 		// fetch for user stats
-		const statResponse = await fetch (`${API_BASE}stats/user_match_data/`, {
+		const statResponse = await fetch (`${API_BASE}/stats/user_match_data/`, {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
