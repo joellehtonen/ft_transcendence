@@ -15,6 +15,7 @@ export default defineConfig({
         protocol: 'wss',
         host: 'localhost',
         clientPort: 8443,
+		port: 8443,
     },
     origin: 'https://localhost:8443',
   },
