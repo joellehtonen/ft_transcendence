@@ -685,7 +685,7 @@ export const fetchProfileMe = async (
 
 export const fetchEloScore = async (username: string): Promise<number> => {
   try {
-    const response = await fetch(`${API_BASE}}/stats/user_match_data/elo_score/${username}`, {
+    const response = await fetch(`${API_BASE}/stats/user_match_data/elo_score/${username}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
