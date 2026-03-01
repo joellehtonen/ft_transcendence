@@ -82,7 +82,7 @@ body, html {
 }
 
 .hover-label {
-  @apply mt-3 text-black opacity-0 -translate-y-3 transition duration-200 ease-in-out
+  @apply absolute mt-3 text-black opacity-0 -translate-y-3 transition duration-200 ease-in-out
   peer-hover:opacity-100 peer-hover:translate-y-0
 }
 
