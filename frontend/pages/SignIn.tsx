@@ -45,7 +45,6 @@ const SignInPage: React.FC = () => {
 		};
 
 		const signInData = await signInUser(newUser);
-		console.log("signInData:", signInData);
 
 		switch (signInData.type) {
 			// 1: Wrong password

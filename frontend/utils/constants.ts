@@ -1,1 +1,1 @@
-export const DEFAULT_AVATAR = '/assets/icons/profile-icon.svg';
+export const DEFAULT_AVATAR = '../assets/icons/profile-icon.svg';
