@@ -99,7 +99,7 @@ const SignInPage: React.FC = () => {
 			/>
 
 			<div className="flex flex-col justify-center p-8 w-[270px]">
-				<h2 id="pageTitle" className="font-semibold text-center">
+				<h2 id="pageTitle" className="font-bold text-lg text-center">
 					{t("pages.signIn.title")}
 				</h2>
 
@@ -141,11 +141,11 @@ const SignInPage: React.FC = () => {
 					)}
 				/>
 
-				<p className="text-center text-sm translate-y-3">
+				<p className="text-center text-md font-medium translate-y-3">
 					{t("pages.signIn.links.notRegistered")}{" "}
 					<Link
 						to="/signup"
-						className="underline hover:bg-black hover:text-white rounded-xl px-1 py-0.5 hover:no-underline"
+						className="underline ease-in-out hover:bg-black hover:text-white rounded-xl px-1 py-0.5 ease-in-out hover:no-underline"
 						aria-label={t("pages.signIn.aria.signUpLink")}
 					>
 						{t("pages.signIn.links.signUp")}

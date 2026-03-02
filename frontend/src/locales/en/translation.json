@@ -172,10 +172,10 @@
     },
 
     "signIn": {
-      "title": "Sign In",
+      "title": "Sign in",
       "links": {
         "notRegistered": "Not registered?",
-        "signUp": "Sign Up"
+        "signUp": "Sign up"
       },
       "aria": {
         "label": "Sign In page",
@@ -192,10 +192,10 @@
     },
 
     "signUp": {
-      "title": "Sign Up",
+      "title": "Sign up",
       "toggle2FA": "2FA with Google Authenticator",
       "alreadyHaveAccount": "Already have an account?",
-      "signInLink": "Sign In",
+      "signInLink": "Sign in",
       "aria": {
         "label": "Sign Up page",
         "description": "This is the sign-up page where new users can create an account by entering their username, email, password, and PIN. It includes form validation and an option to enable two-factor authentication.",

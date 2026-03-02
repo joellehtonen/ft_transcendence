@@ -1,80 +1,84 @@
 services:
-  stats-service:
-    build:
-      context: ./services/stats-service
-    env_file: "./.env"
-    volumes:
-      - stats_data:/app/data
-    networks:
-      - trancendence-network
-    restart: unless-stopped
+    stats-service:
+        build:
+            context: ./services/stats-service
+        env_file: "./.env"
+        volumes:
+            - stats_data:/app/data
+        networks:
+            - trancendence-network
+        restart: unless-stopped
 
-  tournament-service:
-    build:
-      context: ./services/tournament-service
-    env_file: "./.env"
-    volumes:
-      - tournament_data:/app/data
-    networks:
-      - trancendence-network
-    restart: unless-stopped
+    tournament-service:
+        build:
+            context: ./services/tournament-service
+        env_file: "./.env"
+        volumes:
+            - tournament_data:/app/data
+        networks:
+            - trancendence-network
+        restart: unless-stopped
 
-  gateway-service:
-    build:
-      context: ./gateway
-    env_file: "./.env"
-    depends_on:
-      - stats-service
-      - tournament-service
-      - auth-service
-      - frontend-service
-    ports:
-      - "8443:8443"
-    networks:
-      - trancendence-network
-    restart: unless-stopped
+    gateway-service:
+        build:
+            context: ./gateway
+        env_file: "./.env"
+        depends_on:
+            - stats-service
+            - tournament-service
+            - auth-service
+            - frontend-service
+        ports:
+            - "8443:8443"
+        networks:
+            - trancendence-network
+        restart: unless-stopped
 
-  auth-service:
-    build:
-      context: ./services/auth-service
-      target: dev
-    env_file: "./services/auth-service/.env"
-    networks:
-      - trancendence-network
-    restart: unless-stopped
-    volumes:
-      - auth_data:/app/data
-      - ./services/auth-service/uploads:/app/uploads
+    auth-service:
+        build:
+            context: ./services/auth-service
+            target: dev
+        env_file: "./services/auth-service/.env"
+        networks:
+            - trancendence-network
+        restart: unless-stopped
+        volumes:
+            - auth_data:/app/data
+            - ./services/auth-service/uploads:/app/uploads
 
-  frontend-service:
-    build:
-      context: ./frontend
-    networks:
-      - trancendence-network
-    restart: unless-stopped
+    frontend-service:
+        build:
+            context: ./frontend
+        networks:
+            - trancendence-network
+        restart: unless-stopped
+        volumes:
+            - ./frontend:/app
+            - /app/node_modules
+        ports:
+            - "24678:24678"
 
 volumes:
-  stats_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/services/stats-service/data
-  tournament_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/services/tournament-service/data
-  auth_data:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: ${PWD}/services/auth-service/data
+    stats_data:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/services/stats-service/data
+    tournament_data:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/services/tournament-service/data
+    auth_data:
+        driver: local
+        driver_opts:
+            type: none
+            o: bind
+            device: ${PWD}/services/auth-service/data
 
 networks:
-  trancendence-network:
-    name: trancendence-network
-    driver: bridge
-
+    trancendence-network:
+        name: trancendence-network
+        driver: bridge

@@ -103,7 +103,7 @@ const SignUpPage = () => {
 			/>
 
 			<div className="flex flex-col justify-center p-8">
-				<h2 id="pageTitle" className="font-semibold text-center">
+				<h2 id="pageTitle" className="font-bold text-lg text-center">
 					{t("pages.signUp.title")}
 				</h2>
 
@@ -190,11 +190,11 @@ const SignUpPage = () => {
 					/>
 				</form>
 
-				<p className="text-center text-sm translate-y-2">
+				<p className="text-center text-md font-medium translate-y-2">
 					{t("pages.signUp.alreadyHaveAccount")}{" "}
 					<Link
 						to="/signin"
-						className="underline hover:bg-black hover:text-white rounded-xl px-1 py-0.5 hover:no-underline"
+						className="underline ease-in-out hover:bg-black hover:text-white rounded-xl px-1 py-0.5 hover:no-underline"
 						aria-label={t("pages.signUp.aria.signInLink")}
 					>
 						{t("pages.signUp.signInLink")}

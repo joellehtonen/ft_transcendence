@@ -33,10 +33,6 @@ const HomePage: React.FC = () => {
         <h1 id="pageTitle" className="h1">
           P | N G - P · N G
         </h1>
-
-        {/* <p id="home-description" className="text-lg mb-6">
-          {t('pages.home.welcome')}
-        </p> */}
       </div>
 
       <div className="flex flex-wrap justify-center gap-6 mb-10">
